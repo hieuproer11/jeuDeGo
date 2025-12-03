@@ -1,8 +1,21 @@
 <div class="plateau-container">
   <div class="controls">
-    <button (click)="reset()">Reset</button>
-    <button (click)="makeAiMove()">AI Move</button>
-    <button (click)="goHome()">Home</button>
+    <div class="game-info">
+      <span class="player-indicator">
+        Joueur actuel: 
+        <span [class.black-text]="currentPlayer === 1" [class.white-text]="currentPlayer === 2">
+          {{ currentPlayer === 1 ? 'Noir' : 'Blanc' }}
+        </span>
+      </span>
+      @if (gameOver) {
+        <span class="game-over">Partie terminée</span>
+      }
+    </div>
+    <div class="button-group">
+      <button (click)="pass()">Passer</button>
+      <button (click)="reset()">Reset</button>
+      <button (click)="goHome()">Home</button>
+    </div>
   </div>
 
   <div class="plateau">
@@ -23,8 +36,13 @@
           @for (cell of row; track $index; let j = $index) {
             <div class="intersection" 
                  (click)="onIntersectionClick(i, j)"
+                 (contextmenu)="onIntersectionRightClick($event, i, j)"
                  [style.top.px]="i * 50"
                  [style.left.px]="j * 50">
+              <!-- Afficher la pierre si elle existe -->
+              @if (board[i][j] !== 0) {
+                <app-piece [color]="board[i][j] === 1 ? 'black' : 'white'"></app-piece>
+              }
             </div>
           }
         }

@@ -7,10 +7,44 @@
 
 .controls {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.game-info {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.player-indicator {
+  color: #333;
+}
+
+.black-text {
+  color: #000;
+  text-shadow: 0 0 2px #888;
+}
+
+.white-text {
+  color: #666;
+  text-shadow: 0 0 2px #ccc;
+}
+
+.game-over {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
 }
 
 .controls button {
-  margin: 0 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
