@@ -1,6 +1,17 @@
 <div class="plateau-container">
   <div class="controls">
     <div class="game-info">
+      <div class="scores">
+        <span class="score-item">
+          <span class="score-label black-text">Noir:</span>
+          <span class="score-value">{{ blackScore }}</span>
+        </span>
+        <span class="score-separator">|</span>
+        <span class="score-item">
+          <span class="score-label white-text">Blanc:</span>
+          <span class="score-value">{{ whiteScore }}</span>
+        </span>
+      </div>
       <span class="player-indicator">
         Joueur actuel: 
         <span [class.black-text]="currentPlayer === 1" [class.white-text]="currentPlayer === 2">
