@@ -25,48 +25,58 @@
 }
 
 .plateau {
+  position: relative;
   background: linear-gradient(to bottom, #d4a574, #c8965f);
-  padding: 20px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.grid {
-  display: inline-block;
-  background-color: #d4a574;
-}
-
-.row {
-  display: flex;
-}
-
-.cell {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #000;
-  box-sizing: border-box;
-  cursor: pointer;
+.board-wrapper {
   position: relative;
-  background-color: #d4a574;
+  width: 400px;
+  height: 400px;
 }
 
-.cell:hover {
-  background-color: #c8965f;
+.grid-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* Enlever les bordures extérieures pour avoir des lignes uniquement entre les cellules */
-.row:first-child .cell {
-  border-top: 2px solid #000;
+.h-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
 }
 
-.row:last-child .cell {
-  border-bottom: 2px solid #000;
+.v-line {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: #000;
 }
 
-.cell:first-child {
-  border-left: 2px solid #000;
+.intersection-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-.cell:last-child {
-  border-right: 2px solid #000;
+.intersection {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: translate(-10px, -10px);
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.intersection:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }

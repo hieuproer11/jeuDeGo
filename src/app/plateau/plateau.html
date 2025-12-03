@@ -1,18 +1,34 @@
 <div class="plateau-container">
-    <div class="controls">
-        <button (click)="reset()">Reset</button>
-        <button (click)="makeAiMove()">AI Move</button>
-        <button (click)="goHome()">Home</button>
+  <div class="controls">
+    <button (click)="reset()">Reset</button>
+    <button (click)="makeAiMove()">AI Move</button>
+    <button (click)="goHome()">Home</button>
+  </div>
+
+  <div class="plateau">
+    <div class="board-wrapper">
+      <!-- Les lignes de la grille -->
+      <div class="grid-lines">
+        @for (row of board; track $index; let i = $index) {
+          <div class="h-line" [style.top.px]="i * 50"></div>
+        }
+        @for (cell of board[0]; track $index; let j = $index) {
+          <div class="v-line" [style.left.px]="j * 50"></div>
+        }
+      </div>
+      
+      <!-- Les points d'intersection cliquables -->
+      <div class="intersection-grid">
+        @for (row of board; track $index; let i = $index) {
+          @for (cell of row; track $index; let j = $index) {
+            <div class="intersection" 
+                 (click)="onIntersectionClick(i, j)"
+                 [style.top.px]="i * 50"
+                 [style.left.px]="j * 50">
+            </div>
+          }
+        }
+      </div>
     </div>
-    <div class="plateau">
-        <div class="grid">
-            @for (row of board; track $index; let i = $index) {
-                <div class="row">
-                    @for (cell of row; track $index; let j = $index) {
-                        <div class="cell" (click)="onCellClick(i, j)"></div>
-                    }
-                </div>
-            }
-        </div>
-    </div>
+  </div>
 </div>
