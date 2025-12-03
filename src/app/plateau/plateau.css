@@ -1,0 +1,72 @@
+.plateau-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.controls button:hover {
+  background-color: #45a049;
+}
+
+.plateau {
+  background: linear-gradient(to bottom, #d4a574, #c8965f);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.grid {
+  display: inline-block;
+  background-color: #d4a574;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  background-color: #d4a574;
+}
+
+.cell:hover {
+  background-color: #c8965f;
+}
+
+/* Enlever les bordures extérieures pour avoir des lignes uniquement entre les cellules */
+.row:first-child .cell {
+  border-top: 2px solid #000;
+}
+
+.row:last-child .cell {
+  border-bottom: 2px solid #000;
+}
+
+.cell:first-child {
+  border-left: 2px solid #000;
+}
+
+.cell:last-child {
+  border-right: 2px solid #000;
+}

@@ -1,0 +1,18 @@
+<div class="plateau-container">
+    <div class="controls">
+        <button (click)="reset()">Reset</button>
+        <button (click)="makeAiMove()">AI Move</button>
+        <button (click)="goHome()">Home</button>
+    </div>
+    <div class="plateau">
+        <div class="grid">
+            @for (row of board; track $index; let i = $index) {
+                <div class="row">
+                    @for (cell of row; track $index; let j = $index) {
+                        <div class="cell" (click)="onCellClick(i, j)"></div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
