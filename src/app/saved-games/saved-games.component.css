@@ -1,0 +1,9 @@
+.saved-container{padding:16px;max-width:720px;margin:0 auto}
+.saved-container h2{margin-bottom:12px}
+.actions{display:flex;gap:8px;margin-bottom:12px}
+ul{list-style:none;padding:0}
+li{display:flex;justify-content:space-between;align-items:center;padding:8px;border:1px solid #ddd;border-radius:6px;margin-bottom:8px}
+.meta{display:flex;gap:12px;align-items:center}
+.meta .date{color:#666;font-size:12px}
+.controls button{margin-left:6px}
+.empty{color:#666;padding:12px}

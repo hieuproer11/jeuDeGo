@@ -18,7 +18,23 @@ export class Plateau {
     private router: Router,
     public gameService: GameService
   ) {
-    this.gameService.startNewGame();
+    // Ne démarrer une nouvelle partie que si aucune partie n'est en cours
+    if (!this.gameService.gameStartedState()) {
+      this.gameService.startNewGame();
+    }
+  }
+
+  openSavedList() {
+    this.router.navigate(['/saved']);
+  }
+
+  saveCurrent(name?: string) {
+    try {
+      this.gameService.saveCurrentGame(name);
+      alert('Partie sauvegardée.');
+    } catch (e) {
+      alert('Erreur lors de la sauvegarde.');
+    }
   }
 
   get board() {

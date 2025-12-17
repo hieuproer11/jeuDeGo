@@ -1,0 +1,23 @@
+<div class="saved-container">
+  <h2>Parties sauvegardées</h2>
+  <div class="actions">
+    <button (click)="saveCurrent()">Sauvegarder la partie courante</button>
+    <button (click)="router.navigate(['/'])">Retour</button>
+  </div>
+
+  <div *ngIf="savedGames.length === 0" class="empty">Aucune partie enregistrée.</div>
+
+  <ul>
+    <li *ngFor="let g of savedGames">
+      <div class="meta">
+        <strong>{{g.name}}</strong>
+        <span class="date">{{g.createdAt}}</span>
+        <span class="size">{{g.boardSize}} x {{g.boardSize}}</span>
+      </div>
+      <div class="controls">
+        <button (click)="load(g.id)">Charger</button>
+        <button (click)="delete(g.id)">Supprimer</button>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -41,7 +41,8 @@ export class GameService {
   constructor() {
     this.initializeBoard();
   }
-
+  
+  private readonly STORAGE_KEY = 'go_saved_games_v1';
   /**
    * Initialise un nouveau plateau vide
    */
@@ -387,5 +388,90 @@ export class GameService {
     
     // Sinon, il appartient à la seule couleur adjacente
     return Array.from(adjacentColors)[0];
+  }
+
+  /** Sauvegarde l'état courant dans le localStorage. Retourne l'id de la sauvegarde. */
+  saveCurrentGame(name?: string): string {
+    const id = `game_${Date.now()}`;
+
+    const saved = {
+      id,
+      name: name || `Partie ${new Date().toLocaleString()}`,
+      board: this.board(),
+      currentPlayer: this.currentPlayer(),
+      blackScore: this.blackScore(),
+      whiteScore: this.whiteScore(),
+      boardSize: this.boardSize(),
+      boardHistory: this.boardHistory,
+      createdAt: new Date().toISOString()
+    };
+
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY) || '{}';
+      const store = JSON.parse(raw);
+      store[id] = saved;
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(store));
+      return id;
+    } catch (e) {
+      console.error('Erreur lors de la sauvegarde de la partie', e);
+      throw e;
+    }
+  }
+
+  /** Retourne la liste des sauvegardes (métadonnées) */
+  listSavedGames(): { id: string; name: string; createdAt: string; boardSize: number }[] {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY) || '{}';
+      const store = JSON.parse(raw);
+      return Object.values(store).map((g: any) => ({ id: g.id, name: g.name, createdAt: g.createdAt, boardSize: g.boardSize }));
+    } catch (e) {
+      console.error('Erreur lors de la lecture des sauvegardes', e);
+      return [];
+    }
+  }
+
+  /** Récupère une sauvegarde complète par id */
+  getSavedGame(id: string): any | null {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY) || '{}';
+      const store = JSON.parse(raw);
+      return store[id] || null;
+    } catch (e) {
+      console.error('Erreur lors de la récupération de la sauvegarde', e);
+      return null;
+    }
+  }
+
+  /** Charge une sauvegarde par id dans l'état courant. Retourne true si OK. */
+  loadSavedGame(id: string): boolean {
+    const g = this.getSavedGame(id);
+    if (!g) return false;
+
+    // Appliquer l'état
+    if (Array.isArray(g.board)) {
+      this.board.set(g.board);
+    }
+    if (typeof g.currentPlayer === 'number') this.currentPlayer.set(g.currentPlayer);
+    if (typeof g.blackScore === 'number') this.blackScore.set(g.blackScore);
+    if (typeof g.whiteScore === 'number') this.whiteScore.set(g.whiteScore);
+    if (typeof g.boardSize === 'number') this.boardSize.set(g.boardSize);
+    if (Array.isArray(g.boardHistory)) this.boardHistory = g.boardHistory;
+
+    this.gameStarted.set(true);
+    return true;
+  }
+
+  /** Supprime une sauvegarde par id */
+  deleteSavedGame(id: string): void {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY) || '{}';
+      const store = JSON.parse(raw);
+      if (store[id]) {
+        delete store[id];
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(store));
+      }
+    } catch (e) {
+      console.error('Erreur lors de la suppression de la sauvegarde', e);
+    }
   }
 }
