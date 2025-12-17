@@ -22,6 +22,38 @@
         <span class="game-over">Partie terminée</span>
       }
     </div>
+
+    @if (gameOver && finalScores) {
+      <div class="final-score-panel">
+        <h3>🏆 Score Final</h3>
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>Joueur</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [class.winner-row]="finalScores.winner === 'Noir'">
+              <td><span class="black-text">●</span> Noir</td>
+              <td>{{ finalScores.black.toFixed(1) }}</td>
+            </tr>
+            <tr [class.winner-row]="finalScores.winner === 'Blanc'">
+              <td><span class="white-text">○</span> Blanc</td>
+              <td>{{ finalScores.white.toFixed(1) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="winner-announcement">
+          <strong>{{ finalScores.winner }}</strong> gagne de 
+          <strong>{{ finalScores.margin.toFixed(1) }}</strong> points !
+        </div>
+        <div class="final-note">
+          (Règles françaises avec komi de 7.5 pour Blanc)
+        </div>
+      </div>
+    }
+
     <div class="button-group">
       <button (click)="pass()">Passer</button>
       <button (click)="reset()">Reset</button>

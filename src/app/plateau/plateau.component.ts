@@ -13,6 +13,7 @@ import { GameService } from '../services/game.service';
 export class Plateau {
   passCount = 0;
   gameOver = false;
+  finalScores: { black: number; white: number; winner: string; margin: number } | null = null;
 
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class Plateau {
     this.gameService.reset();
     this.passCount = 0;
     this.gameOver = false;
+    this.finalScores = null;
   }
 
   onIntersectionClick(row: number, col: number) {
@@ -95,16 +97,15 @@ export class Plateau {
 
   showFinalScore() {
     const finalScore = this.gameService.calculateFinalScore();
-    const winner = finalScore.black > finalScore.white ? 'Noir' : 'Blanc';
-    const margin = Math.abs(finalScore.black - finalScore.white).toFixed(1);
+    const winner = finalScore.black > finalScore.white ? 'Noir' : (finalScore.white > finalScore.black ? 'Blanc' : 'Égalité');
+    const margin = Math.abs(finalScore.black - finalScore.white);
     
-    const message = `Partie terminée !\n\n` +
-                    `Score final (règles françaises):\n` +
-                    `Noir: ${finalScore.black.toFixed(1)} points\n` +
-                    `Blanc: ${finalScore.white.toFixed(1)} points (avec komi de 7.5)\n\n` +
-                    `${winner} gagne de ${margin} points !`;
-    
-    alert(message);
+    this.finalScores = {
+      black: finalScore.black,
+      white: finalScore.white,
+      winner,
+      margin
+    };
   }
 
   goHome() {

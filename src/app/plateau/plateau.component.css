@@ -146,3 +146,92 @@
 .intersection:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
+
+/* Final Score Panel Styles */
+.final-score-panel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin: 15px 0;
+  max-width: 400px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.final-score-panel h3 {
+  margin: 0 0 15px 0;
+  text-align: center;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.score-table th {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #555;
+}
+
+.score-table td {
+  padding: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.score-table tr:hover {
+  background-color: rgba(33, 150, 243, 0.1);
+}
+
+.winner-row {
+  background-color: rgba(255, 215, 0, 0.2) !important;
+  font-weight: bold;
+}
+
+.winner-row td {
+  color: #d32f2f;
+  font-size: 18px;
+}
+
+.winner-announcement {
+  text-align: center;
+  font-size: 18px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.winner-announcement strong {
+  font-size: 22px;
+  text-decoration: underline;
+}
+
+.final-note {
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.8;
+  font-style: italic;
+}
